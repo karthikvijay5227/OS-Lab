@@ -22,7 +22,7 @@ int main()
       printf("\nEnter Time Quantum(in ms):");
       scanf("%d", &tq);
 
-      printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\n");
+      printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\t Arrival Time\n");
       for(i = 0; x != 0;)
       {
             if(temp[i] <= tq && temp[i] > 0)
@@ -40,7 +40,7 @@ int main()
             {
                   x--;
                   int turn = total - at[i]; // TurnAround Time
-                  printf("\nP[%d]\t\t\t    %d\t\t     %d\t\t\t    %d", i + 1, bt[i], total - at[i], total - (at[i] + bt[i]));
+                  printf("\nP[%d]\t\t\t    %d\t\t     %d\t\t\t    %d", i + 1, bt[i], total - at[i], total - (at[i] + bt[i]),at[i]);
                   tat += turn; // Completion Time - Arrival Time
                   wt += turn - bt[i]; // TurnAround Time - BurstTime
                   c = 0;

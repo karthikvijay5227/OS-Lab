@@ -2,7 +2,7 @@
 int main()
 {
       int n;
-      printf("Enter the no of processes:");
+      printf("Enter total number of processes:");
       scanf("%d",&n);
 
       int bt[n],at[n],P[n],avwt = 0,avtat = 0;
@@ -23,7 +23,7 @@ int main()
       scanf("%d", &tq);
 
       printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\n");
-      for(total = 0, i = 0; x != 0;)
+      for(i = 0; x != 0;)
       {
             if(temp[i] <= tq && temp[i] > 0)
             {
@@ -39,9 +39,10 @@ int main()
             if(temp[i] == 0 && c == 1)
             {
                   x--;
+                  int turn = total - at[i]; // TurnAround Time
                   printf("\nP[%d]\t\t\t    %d\t\t     %d\t\t\t    %d", i + 1, bt[i], total - at[i], total - (at[i] + bt[i]));
-                  wt += total - at[i] - bt[i];
-                  tat += total - at[i];
+                  tat += turn; // Completion Time - Arrival Time
+                  wt += turn - bt[i]; // TurnAround Time - BurstTime
                   c = 0;
             }
             
@@ -53,8 +54,8 @@ int main()
                i = 0;
       }
  
-      avwt = wt * 1.0 / n;
-      avtat = tat * 1.0 / n;
+      avwt = wt / n;
+      avtat = tat / n;
       printf("\n\nAverage Waiting Time:%d ms", avwt);
       printf("\nAverage Turnaround Time:%d ms\n", avtat);
     

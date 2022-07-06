@@ -4,7 +4,7 @@ int main()
 {
   int m,n,i,j;
 
-  printf("Ente the number of memory partitions and processes:");
+  printf("Enter the number of memory partitions and processes:");
   scanf("%d%d",&m,&n);
 
   int bSize[m],pSize[n];

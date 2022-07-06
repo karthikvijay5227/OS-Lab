@@ -35,7 +35,7 @@ int main()
         {
             if (bSize[j] >= pSize[i])
             {
-                if (wstIdx == -1 || bSize[wstIdx] < bSize[j])
+                if (wstIdx == -1 || bSize[j] > bSize[wstIdx])
                     wstIdx = j;
             }
         }

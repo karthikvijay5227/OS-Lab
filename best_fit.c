@@ -31,7 +31,7 @@ int main()
         {
             if (bSize[j] >= pSize[i])
             {
-                if (bestIdx == -1 || bSize[bestIdx] > bSize[j])
+                if (bestIdx == -1 || bSize[j] < bSize[bestIdx])
                     bestIdx = j;
             }
         }

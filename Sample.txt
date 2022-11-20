@@ -1,3 +1,26 @@
+Insert into Language values (1, 'English') ;
+insert into Language values (2, 'Malayalam');
+
+insert into Publisher values (1, 'Ardra', 'abc');
+insert into Publisher values (2, 'Anjali', 'xyz')';
+
+Insert into Book values (101, 'Hidden World', 1, 150, 5, '2020-09-19', 2, 'Yes');
+insert into Book values (102, 'Primal Hunter', 3, 200, 1, '2000-07-07', 5, 'Yes');
+
+insert into Author values (501, 'Delna', 'delna@gmail.com', 8111866320, 'Yes');
+insert into Author values (502, ' Cinvin', 'cinvin@gmail.com',9526082824, 'Yes');
+
+insert into Book_Author values (101, 501);
+insert into Book_Author values (102, 502);
+
+insert into Member values (001, 'Ganga', 301, 19, 8111866322, 'ganga@gmail.com',
+'2020-06-01', 'Yes');
+insent into Member values (002, 'Arya', 302, 20, 9526082822, 'arya@gmail.com',
+'2019-05-27', 'Yes');
+
+insert into Book_issue values (1001, '2021-01-16', 103, 005, '2021-03-16', 'Yes');
+insert into Book_issue values (1002, '2021-02-01', 104, 001, '2021-04-01', 'Yes');
+
 insert into Book_Return values (1001, '2021-03-21', 5, 10);
 insert into Book_Return values (1002, ('2021-04-30', 29, 100);
 

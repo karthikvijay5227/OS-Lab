@@ -1,47 +1,247 @@
-Insert into Language values (1, 'English') ;
-insert into Language values (2, 'Malayalam');
+karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31-0ubuntu0.22.04.1 (Ubuntu)
 
-insert into Publisher values (1, 'Ardra', 'abc');
-insert into Publisher values (2, 'Anjali', 'xyz')';
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
 
-Insert into Book values (101, 'Hidden World', 1, 150, 5, '2020-09-19', 2, 'Yes');
-insert into Book values (102, 'Primal Hunter', 3, 200, 1, '2000-07-07', 5, 'Yes');
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
 
-insert into Author values (501, 'Delna', 'delna@gmail.com', 8111866320, 'Yes');
-insert into Author values (502, ' Cinvin', 'cinvin@gmail.com',9526082824, 'Yes');
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-insert into Book_Author values (101, 501);
-insert into Book_Author values (102, 502);
+mysql> use Library;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
 
-insert into Member values (001, 'Ganga', 301, 19, 8111866322, 'ganga@gmail.com',
-'2020-06-01', 'Yes');
-insent into Member values (002, 'Arya', 302, 20, 9526082822, 'arya@gmail.com',
-'2019-05-27', 'Yes');
+Database changed
+mysql> 
+mysql> show tables;
++-------------------+
+| Tables_in_Library |
++-------------------+
+| Author            |
+| Book              |
+| Book_Author       |
+| Book_issue        |
+| Book_return       |
+| Language          |
+| Member            |
+| Publisher         |
+| late_fee_rule     |
++-------------------+
+9 rows in set (0.00 sec)
 
-insert into Book_issue values (1001, '2021-01-16', 103, 005, '2021-03-16', 'Yes');
-insert into Book_issue values (1002, '2021-02-01', 104, 001, '2021-04-01', 'Yes');
+mysql> desc Author;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Author_id | int         | NO   | PRI | NULL    |       |
+| Name      | varchar(20) | YES  |     | NULL    |       |
+| email     | varchar(15) | YES  |     | NULL    |       |
+| ph_no     | int         | YES  |     | NULL    |       |
+| status    | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
 
-insert into Book_Return values (1001, '2021-03-21', 5, 10);
-insert into Book_Return values (1002, ('2021-04-30', 29, 100);
+mysql> desc Book ;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Book_id        | int         | NO   | PRI | NULL    |       |
+| Title          | varchar(15) | YES  |     | NULL    |       |
+| language_id    | int         | YES  | MUL | NULL    |       |
+| MRP            | bigint      | YES  |     | NULL    |       |
+| publisher_id   | int         | YES  | MUL | NULL    |       |
+| Publisher_date | date        | YES  |     | NULL    |       |
+| volume         | int         | YES  |     | NULL    |       |
+| status         | varchar(20) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
 
-insert into late_Fee_Rule values (0, 7, 10);
-insert into late_Fee_Rule values (7,30, 100);
+mysql> desc Book_Author;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| Book_id   | int  | NO   | PRI | NULL    |       |
+| Author_id | int  | NO   | PRI | NULL    |       |
++-----------+------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
 
-Learn and execute bulk import of data to tables from CSV files (insert
-1000 records of books into the BOOK table from a CSV file).
+mysql> desc Book_issue;
++----------------------+------+------+-----+---------+-------+
+| Field                | Type | Null | Key | Default | Extra |
++----------------------+------+------+-----+---------+-------+
+| Issue_id             | int  | NO   | PRI | NULL    |       |
+| Date_of_issue        | date | YES  |     | NULL    |       |
+| Book_id              | int  | YES  | MUL | NULL    |       |
+| Member_id            | int  | YES  | MUL | NULL    |       |
+| Expected_return_date | date | YES  |     | NULL    |       |
++----------------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
 
-load data local infile '/home/S5C1/Downloads/book.csv' into table Book
-fields terminated by ',' lines terminated by '\n';
+mysql> desc Book_return;
++-----------------------+------+------+-----+---------+-------+
+| Field                 | Type | Null | Key | Default | Extra |
++-----------------------+------+------+-----+---------+-------+
+| Issue_id              | int  | YES  | MUL | NULL    |       |
+| Actual_Date_of_return | date | YES  |     | NULL    |       |
+| late_days             | int  | YES  |     | NULL    |       |
+| late_fee              | int  | YES  |     | NULL    |       |
++-----------------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
 
-Create and execute UPDATE / DELETE commands on tables. Try to update / delete.
-rows with Primary and Foreign Keys. Try bulk updates or deletes using
-SQL UPDATE statement.
+mysql> desc Language;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| language_id | int         | NO   | PRI | NULL    |       |
+| Name        | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
 
-update Language set Name = 'Chinese' where lang_id = 3;
-delete from language where lang_id = 3;
+mysql> desc Member ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Member_id    | int         | NO   | PRI | NULL    |       |
+| Name         | varchar(20) | YES  |     | NULL    |       |
+| Branch_code  | int         | YES  |     | NULL    |       |
+| Roll_no      | int         | YES  |     | NULL    |       |
+| email        | varchar(15) | YES  |     | NULL    |       |
+| date_of_join | date        | YES  |     | NULL    |       |
+| status       | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
 
-If we try to update/delete rows with primary and foreign keys without using 's
-delete cascade' or 'on update cascade constraint then referencing errors will occur.
+mysql> desc Publisher;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| publisher_id | int         | NO   | PRI | NULL    |       |
+| Name         | varchar(20) | YES  |     | NULL    |       |
+| Address      | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
 
-update Publisher set Address - (case Publisher_id when 11 then 'USA' when 12 then 'UK'
-end) where Publisher id in (1,2);
+mysql> desc late_fee_rule;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| from_days | int  | NO   | PRI | NULL    |       |
+| to_days   | int  | NO   | PRI | NULL    |       |
+| Amount    | int  | NO   | PRI | NULL    |       |
++-----------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> truncate Language;
+ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book`, CONSTRAINT `Book_ibfk_1`)
+mysql> truncate Author;
+ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book_Author`, CONSTRAINT `Book_Author_ibfk_2`)
+mysql> truncate Book;
+ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book_Author`, CONSTRAINT `Book_Author_ibfk_1`)
+mysql> delete from Language;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> delete from Book;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from Book_issue;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from Book_return;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from late_fee_rule;
+Query OK, 2 rows affected (0.04 sec)
+
+mysql> delete from Member;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> delete from Publisher;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> delete from Author;
+Query OK, 2 rows affected (0.04 sec)
+
+mysql> delete from Book_Author;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from Publisher;
+Empty set (0.00 sec)
+
+mysql> 
+mysql> insert into Language values(1,"Karthik"),(2,"Ashwin"),("3.Nibin");
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> insert into Language values(1,"Karthik"),(2,"Ashwin"),(3,"Nibin");
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id:    8
+Current database: Library
+
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from Language;
++-------------+---------+
+| language_id | Name    |
++-------------+---------+
+|           1 | Karthik |
+|           2 | Ashwin  |
+|           3 | Nibin   |
++-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Publisher values(1,"Kart","Chennai"),(2,"Ashwin r","Kolkata"),(3,"Nibin","Bengal");
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+ERROR: 
+Can't connect to the server
+
+mysql> exit
+Bye
+karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
+Enter password: 
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
+Enter password: 
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31-0ubuntu2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from Publisher;
+ERROR 1046 (3D000): No database selected
+mysql> use Library;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Publisher;
+Empty set (0.00 sec)
+
+mysql> delete from Language;
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> insert into Language values(1,"English"),(2,"Hindi"),(3,"Malayalam");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into Publisher values(101,"Karthik","Chennai"),(102,"Ashwin","Kolkata"),(103,"Nibin","Bengal");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> 

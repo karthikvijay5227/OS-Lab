@@ -1,23 +1,8 @@
-karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
-Enter password: 
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 8
-Server version: 8.0.31-0ubuntu0.22.04.1 (Ubuntu)
-
-Copyright (c) 2000, 2022, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
 mysql> use Library;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-mysql> 
 mysql> show tables;
 +-------------------+
 | Tables_in_Library |
@@ -32,7 +17,7 @@ mysql> show tables;
 | Publisher         |
 | late_fee_rule     |
 +-------------------+
-9 rows in set (0.00 sec)
+9 rows in set (0.01 sec)
 
 mysql> desc Author;
 +-----------+-------------+------+-----+---------+-------+
@@ -46,7 +31,7 @@ mysql> desc Author;
 +-----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-mysql> desc Book ;
+mysql> desc Book;
 +----------------+-------------+------+-----+---------+-------+
 | Field          | Type        | Null | Key | Default | Extra |
 +----------------+-------------+------+-----+---------+-------+
@@ -68,7 +53,7 @@ mysql> desc Book_Author;
 | Book_id   | int  | NO   | PRI | NULL    |       |
 | Author_id | int  | NO   | PRI | NULL    |       |
 +-----------+------+------+-----+---------+-------+
-2 rows in set (0.01 sec)
+2 rows in set (0.00 sec)
 
 mysql> desc Book_issue;
 +----------------------+------+------+-----+---------+-------+
@@ -93,155 +78,148 @@ mysql> desc Book_return;
 +-----------------------+------+------+-----+---------+-------+
 4 rows in set (0.00 sec)
 
-mysql> desc Language;
-+-------------+-------------+------+-----+---------+-------+
-| Field       | Type        | Null | Key | Default | Extra |
-+-------------+-------------+------+-----+---------+-------+
-| language_id | int         | NO   | PRI | NULL    |       |
-| Name        | varchar(20) | YES  |     | NULL    |       |
-+-------------+-------------+------+-----+---------+-------+
-2 rows in set (0.00 sec)
+mysql> select * from Language
+    -> ;
++-------------+-----------+
+| language_id | Name      |
++-------------+-----------+
+|           1 | English   |
+|           2 | Hindi     |
+|           3 | Malayalam |
+|           4 | Tamil     |
+|           5 | Telugu    |
+|           6 | Bengali   |
++-------------+-----------+
+6 rows in set (0.02 sec)
 
-mysql> desc Member ;
-+--------------+-------------+------+-----+---------+-------+
-| Field        | Type        | Null | Key | Default | Extra |
-+--------------+-------------+------+-----+---------+-------+
-| Member_id    | int         | NO   | PRI | NULL    |       |
-| Name         | varchar(20) | YES  |     | NULL    |       |
-| Branch_code  | int         | YES  |     | NULL    |       |
-| Roll_no      | int         | YES  |     | NULL    |       |
-| email        | varchar(15) | YES  |     | NULL    |       |
-| date_of_join | date        | YES  |     | NULL    |       |
-| status       | varchar(20) | YES  |     | NULL    |       |
-+--------------+-------------+------+-----+---------+-------+
-7 rows in set (0.01 sec)
-
-mysql> desc Publisher;
-+--------------+-------------+------+-----+---------+-------+
-| Field        | Type        | Null | Key | Default | Extra |
-+--------------+-------------+------+-----+---------+-------+
-| publisher_id | int         | NO   | PRI | NULL    |       |
-| Name         | varchar(20) | YES  |     | NULL    |       |
-| Address      | varchar(30) | YES  |     | NULL    |       |
-+--------------+-------------+------+-----+---------+-------+
+mysql> select * from Publisher;
++--------------+---------+---------+
+| publisher_id | Name    | Address |
++--------------+---------+---------+
+|          101 | Karthik | Chennai |
+|          102 | Ashwin  | Kolkata |
+|          103 | Nibin   | Bengal  |
++--------------+---------+---------+
 3 rows in set (0.01 sec)
 
-mysql> desc late_fee_rule;
+mysql> select * from Author;
++-----------+-------+----------------+-----------+-----------+
+| Author_id | Name  | email          | ph_no     | status    |
++-----------+-------+----------------+-----------+-----------+
+|      2002 | John  | jhn2@gmail.com | 308093280 | Working   |
+|      2004 | Steve | stv!@gmail.com | 853950285 | Avail     |
+|      2005 | Abin  | ab45@gmail.com |  58982938 | Not_Avail |
++-----------+-------+----------------+-----------+-----------+
+3 rows in set (0.04 sec)
+
+mysql> select * from late_fee_rule;
++-----------+---------+--------+
+| from_days | to_days | Amount |
++-----------+---------+--------+
+|         2 |      22 |    300 |
+|         7 |      14 |    100 |
+|        12 |      24 |    200 |
++-----------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Member;
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+| Member_id | Name    | Branch_code | Roll_no | email           | date_of_join | status    |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+|      1001 | George  |         340 |      12 | gg@gmail.com    | 2019-07-06   | Avail     |
+|      1002 | Stephen |         342 |      20 | st456@gmail.com | 2019-06-16   | Avail     |
+|      1004 | Govind  |         351 |      21 | gov35@gmail.com | 2020-09-11   | Not_Avail |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+3 rows in set (0.01 sec)
+
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/Books.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+ERROR 1366 (HY000): Incorrect integer value: '' for column 'Book_id' at row 7
+mysql> 
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/Books.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+ERROR 1366 (HY000): Incorrect integer value: '' for column 'Book_id' at row 7
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/Book.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+ERROR 13 (HY000): Can't get stat of '/var/lib/mysql-files/Book.csv' (OS errno 2 - No such file or directory)
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/book.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+ERROR 1292 (22007): Incorrect date value: ' '2020-09-19'' for column 'Publisher_date' at row 1
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/Books.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+ERROR 1366 (HY000): Incorrect integer value: '' for column 'Book_id' at row 7
+mysql> LOAD DATA INFILE '///var/lib/mysql-files/Books.csv' INTO TABLE Book FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from Book;
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+| Book_id | Title | language_id | MRP  | publisher_id | Publisher_date | volume | status |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+|       1 | java  |           1 | 2330 |          101 | 2022-06-06     |      1 | avail  |
+|       2 | C     |           2 | 2330 |          102 | 2022-06-06     |      2 | avail  |
+|       3 | C++   |           3 | 2330 |          103 | 2022-06-06     |      3 | avail  |
+|       4 | java  |           4 | 2330 |          102 | 2022-06-06     |      4 | avail  |
+|       5 | java  |           5 | 2330 |          101 | 2022-06-06     |      5 | avail  |
+|       6 | java  |           6 | 2330 |          103 | 2022-06-06     |      6 | avail  |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into Book_issue values(200,"2020-08-16",2,1002,"2020-08-24");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Book_issue values(202,"2020-08-06",2,1004,"2020-08-14");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Book_issue values(204,"2020-09-14",4,1001,"2020-09-21");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Book_issue values(205,"2020-09-20",6,1002,"2020-09-28");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from Book_issue;
++----------+---------------+---------+-----------+----------------------+
+| Issue_id | Date_of_issue | Book_id | Member_id | Expected_return_date |
++----------+---------------+---------+-----------+----------------------+
+|      200 | 2020-08-16    |       2 |      1002 | 2020-08-24           |
+|      202 | 2020-08-06    |       2 |      1004 | 2020-08-14           |
+|      204 | 2020-09-14    |       4 |      1001 | 2020-09-21           |
+|      205 | 2020-09-20    |       6 |      1002 | 2020-09-28           |
++----------+---------------+---------+-----------+----------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc Book_Author;
 +-----------+------+------+-----+---------+-------+
 | Field     | Type | Null | Key | Default | Extra |
 +-----------+------+------+-----+---------+-------+
-| from_days | int  | NO   | PRI | NULL    |       |
-| to_days   | int  | NO   | PRI | NULL    |       |
-| Amount    | int  | NO   | PRI | NULL    |       |
+| Book_id   | int  | NO   | PRI | NULL    |       |
+| Author_id | int  | NO   | PRI | NULL    |       |
 +-----------+------+------+-----+---------+-------+
-3 rows in set (0.00 sec)
+2 rows in set (0.00 sec)
 
-mysql> truncate Language;
-ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book`, CONSTRAINT `Book_ibfk_1`)
-mysql> truncate Author;
-ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book_Author`, CONSTRAINT `Book_Author_ibfk_2`)
-mysql> truncate Book;
-ERROR 1701 (42000): Cannot truncate a table referenced in a foreign key constraint (`Library`.`Book_Author`, CONSTRAINT `Book_Author_ibfk_1`)
-mysql> delete from Language;
-Query OK, 2 rows affected (0.01 sec)
+mysql> insert into Book_Author values(3,2004),(5,2002),(1,2005),(4,2002);
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
 
-mysql> delete from Book;
-Query OK, 0 rows affected (0.00 sec)
+mysql> select * from Book_Author;
++---------+-----------+
+| Book_id | Author_id |
++---------+-----------+
+|       4 |      2002 |
+|       5 |      2002 |
+|       3 |      2004 |
+|       1 |      2005 |
++---------+-----------+
+4 rows in set (0.00 sec)
 
-mysql> delete from Book_issue;
-Query OK, 0 rows affected (0.01 sec)
-
-mysql> delete from Book_return;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> delete from late_fee_rule;
-Query OK, 2 rows affected (0.04 sec)
-
-mysql> delete from Member;
-Query OK, 2 rows affected (0.01 sec)
-
-mysql> delete from Publisher;
-Query OK, 3 rows affected (0.01 sec)
-
-mysql> delete from Author;
-Query OK, 2 rows affected (0.04 sec)
-
-mysql> delete from Book_Author;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> select * from Publisher;
-Empty set (0.00 sec)
-
-mysql> 
-mysql> insert into Language values(1,"Karthik"),(2,"Ashwin"),("3.Nibin");
-ERROR 1136 (21S01): Column count doesn't match value count at row 3
-mysql> insert into Language values(1,"Karthik"),(2,"Ashwin"),(3,"Nibin");
-ERROR 2013 (HY000): Lost connection to MySQL server during query
-No connection. Trying to reconnect...
-Connection id:    8
-Current database: Library
-
-Query OK, 3 rows affected (0.05 sec)
+mysql> insert into Book_return values(202,"2020-08-16",4,50),(205,"2020-09-02",2,25),(200,"2020-09-18",10,100);
+Query OK, 3 rows affected (0.04 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 
-mysql> select * from Language;
-+-------------+---------+
-| language_id | Name    |
-+-------------+---------+
-|           1 | Karthik |
-|           2 | Ashwin  |
-|           3 | Nibin   |
-+-------------+---------+
+mysql> select * from Book_return;
++----------+-----------------------+-----------+----------+
+| Issue_id | Actual_Date_of_return | late_days | late_fee |
++----------+-----------------------+-----------+----------+
+|      202 | 2020-08-16            |         4 |       50 |
+|      205 | 2020-09-02            |         2 |       25 |
+|      200 | 2020-09-18            |        10 |      100 |
++----------+-----------------------+-----------+----------+
 3 rows in set (0.00 sec)
-
-mysql> insert into Publisher values(1,"Kart","Chennai"),(2,"Ashwin r","Kolkata"),(3,"Nibin","Bengal");
-ERROR 2013 (HY000): Lost connection to MySQL server during query
-No connection. Trying to reconnect...
-ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
-ERROR: 
-Can't connect to the server
 
 mysql> exit
 Bye
-karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
-Enter password: 
-ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
-karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
-Enter password: 
-ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
-karthik@karthik-Inspiron-15-5518:~$ mysql -u karthik -p
-Enter password: 
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 8
-Server version: 8.0.31-0ubuntu2 (Ubuntu)
-
-Copyright (c) 2000, 2022, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql> select * from Publisher;
-ERROR 1046 (3D000): No database selected
-mysql> use Library;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
-Database changed
-mysql> select * from Publisher;
-Empty set (0.00 sec)
-
-mysql> delete from Language;
-Query OK, 3 rows affected (0.00 sec)
-
-mysql> insert into Language values(1,"English"),(2,"Hindi"),(3,"Malayalam");
-Query OK, 3 rows affected (0.01 sec)
-Records: 3  Duplicates: 0  Warnings: 0
-
-mysql> insert into Publisher values(101,"Karthik","Chennai"),(102,"Ashwin","Kolkata"),(103,"Nibin","Bengal");
-Query OK, 3 rows affected (0.01 sec)
-Records: 3  Duplicates: 0  Warnings: 0
-
-mysql> 

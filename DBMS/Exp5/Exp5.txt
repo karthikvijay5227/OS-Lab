@@ -1,13 +1,13 @@
 a. Get the number of books written by a given author
 
-mysql> select Author.Name,count(*) from Book_Author,Author where Book_Author.Author_id=Author.Author_id AND Author.Name IN (select Author.Name from Author) group by Author.Author_id;
-+-------+----------+
-| Name  | count(*) |
-+-------+----------+
-| John  |        2 |
-| Steve |        1 |
-| Abin  |        1 |
-+-------+----------+
+mysql> select Author.Name,count(*) as "No of Books" from Book_Author,Author where Book_Author.Author_id=Author.Author_id AND Author.Name IN (select Author.Name from Author) group by Author.Author_id;
++-------+-------------+
+| Name  | No of Books |
++-------+-------------+
+| John  |           2 |
+| Steve |           1 |
+| Abin  |           1 |
++-------+-------------+
 3 rows in set (0.00 sec)
 
 

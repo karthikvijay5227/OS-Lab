@@ -35,7 +35,7 @@ mysql> select Author.Name from (select Author_id from(select Author_id,count(Boo
 
 d.Get the list of books that are issued but not returned
 
-mysql> select Title from Book,Book_issue,Book_return where Book.Book_id =(select Book_id from Book_issue where Book_issue.Issue_id= (select Issue_id from Book_return where Book_return.Actual_date_of_return="2020-08-16"))group by Book.Book_id;
+mysql> select Title from Book,Book_issue,Book_return where Book.Book_id =(select Book_id from Book_issue where Book_issue.Issue_id= (select Issue_id from Book_return where Book_return.Actual_date_of_return="2020-08-18"))group by Book.Book_id;
 +-------+
 | Title |
 +-------+

@@ -1,0 +1,105 @@
+a. Get the number of books written by a given author
+
+mysql> select count(*) from Book_Author,Author where Book_Author.Author_id=Author.Author_id AND Author.Name='John';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.13 sec)
+
+b.Get the list of publishers and the number of books published by each publisher
+ 
+mysql> select Publisher.Name,count(Book_id) from Book,Publisher where Book.Publisher_id=Publisher.Publisher_id GROUP BY Book.Publisher_id;
++---------+----------------+
+| Name    | count(Book_id) |
++---------+----------------+
+| Karthik |              2 |
+| Ashwin  |              2 |
+| Nibin   |              2 |
++---------+----------------+
+3 rows in set (0.03 sec)
+
+c.Get the names of authors who jointly wrote more than one book.
+
+mysql> select Author.Name from (select Author_id from(select Author_id,count(Book_Author.Book_id)as count from Book_Author group by Book_Author.Author_id)as T1 where count >1)as T2,Author where Author.Author_id=T2.Author_id;
++------+
+| Name |
++------+
+| John |
++------+
+1 row in set (0.07 sec)
+
+d.Get the list of books that are issued but not returned
+
+mysql> select Title from Book,Book_issue,Book_return where Book.Book_id =(select Book_id from Book_issue where Boog. Get the list of students who have overdue (not returned the books even on due date)k_issue.Issue_id= (select Issue_id from Book_return where Book_return.Actual_date_of_return="2020-08-16"))group by Book.Book_id;
++-------+
+| Title |
++-------+
+| C     |
++-------+
+1 row in set (0.02 sec)
+
+e.Get the list of students who reads only ‘Malayalam’ books
+
+mysql> select Member.Name from Member,Book_issue,Book,Language where Member.Member_id=Book_issue.Member_id and Book_issue.Book_id=Book.Book_id and Book.language_id=Language.language_id and Language.Name="Malayalam";
++---------+
+| Name    |
++---------+
+| Stephen |
+| Govind  |
++---------+
+2 rows in set (0.00 sec)
+
+f.Get the total fine collected for the current month and current quarter
+//month
+
+mysql> select sum(late_days) as current_month from Book_return where month(Actual_date_of_return)=month("2020-09-02");
++---------------+
+| current_month |
++---------------+
+|            12 |
++---------------+
+1 row in set (0.00 sec)
+
+//quarter
+
+mysql> select sum(late_days) as current_quarter from Book_return where quarter(Actual_date_of_return)=quarter("2020-09-02");
++-----------------+
+| current_quarter |
++-----------------+
+|              16 |
++-----------------+
+1 row in set (0.00 sec)
+
+g. Get the list of students who have overdue (not returned the books even on due date)
+
+mysql> select Member.Name from Member,Book_issue,Book_return where Member.Member_id = Book_issue.Member_id and Book_issue.Expected_return < Book_return.Actual_date_of_return group by Member.Name;
++---------+
+| Name    |
++---------+
+| Govind  |
+| Stephen |
++---------+
+2 rows in set (0.12 sec)
+
+h.Calculate the fine (as of today) to be collected from each overdue book.
+
+mysql> SELECT Title as Book,sum(late_days)as fee from Book,Book_return,Book_issue where Book.Book_id =Book_issue.Book_id and Book_issue.Issue_id=Book_return.Issue_id and Book_issue.Expected_return <(select CURDATE()) group by Book.Title;
++------+------+
+| Book | fee  |
++------+------+
+| C    |   14 |
+| java |    2 |
++------+------+
+2 rows in set (0.08 sec)
+
+i. Members who joined after Jan 1 2021 but has not take
+
+mysql> select Member.Name from Member,Book_issue where Member.date_of_join > "2021-01-01" and Member.Member_id NOT IN (select Member_id from Book_issue) group by Member.Member_id;
++-------+
+| Name  |
++-------+
+| Jeeva |
++-------+
+1 row in set (0.01 sec)

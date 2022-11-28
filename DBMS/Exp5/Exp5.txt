@@ -1,12 +1,15 @@
 a. Get the number of books written by a given author
 
-mysql> select count(*) from Book_Author,Author where Book_Author.Author_id=Author.Author_id AND Author.Name='John';
-+----------+
-| count(*) |
-+----------+
-|        2 |
-+----------+
-1 row in set (0.13 sec)
+mysql> select Author.Name,count(*) from Book_Author,Author where Book_Author.Author_id=Author.Author_id AND Author.Name IN (select Author.Name from Author) group by Author.Author_id;
++-------+----------+
+| Name  | count(*) |
++-------+----------+
+| John  |        2 |
+| Steve |        1 |
+| Abin  |        1 |
++-------+----------+
+3 rows in set (0.00 sec)
+
 
 b.Get the list of publishers and the number of books published by each publisher
  

@@ -1,0 +1,419 @@
+test> use MyClass
+switched to db MyClass
+MyClass> db.createCollection('db_students')
+{ ok: 1 }
+MyClass> db.db_students.insertMany([{
+... 'student_name':'Ashwin',
+... 'student_rollno':47,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':78
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':87
+...     }]
+... },
+... {
+... 'student_name':'Nibin',
+... 'student_rollno':39,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':89
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':97
+...     }]
+... },
+... {
+... 'student_name':'Akash',
+... 'student_rollno':6,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':80
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':88
+...     }]
+... },
+... {
+... 'student_name':'Adarsh',
+... 'student_rollno':4,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':98
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':94
+...     }]
+... },
+... {
+... 'student_name':'Karthik',
+... 'student_rollno':31,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':80
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':86
+...     }]
+... },
+... {
+... 'student_name':'Anandhu',
+... 'student_rollno':10,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':76
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':85
+...     }]
+... },
+... {
+... 'student_name':'Abin',
+... 'student_rollno':3,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':77
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':85
+...     }]
+... },
+... {
+... 'student_name':'Amrithnath',
+... 'student_rollno':40,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':95
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':96
+...     }]
+... },
+... {
+... 'student_name':'Abhijith',
+... 'student_rollno':2,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':79
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':84
+...     }]
+... },
+... {
+... 'student_name':'Albin',
+... 'student_rollno':7,
+... 'mark':[{
+...      'subject':'Maths',
+...      'marks':86
+...     },
+...     {
+...      'subject':'Science',
+...      'marks':89
+...     }]
+... }])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("63ac49ef158c5a6db0474ecb"),
+    '1': ObjectId("63ac49ef158c5a6db0474ecc"),
+    '2': ObjectId("63ac49ef158c5a6db0474ecd"),
+    '3': ObjectId("63ac49ef158c5a6db0474ece"),
+    '4': ObjectId("63ac49ef158c5a6db0474ecf"),
+    '5': ObjectId("63ac49ef158c5a6db0474ed0"),
+    '6': ObjectId("63ac49ef158c5a6db0474ed1"),
+    '7': ObjectId("63ac49ef158c5a6db0474ed2"),
+    '8': ObjectId("63ac49ef158c5a6db0474ed3"),
+    '9': ObjectId("63ac49ef158c5a6db0474ed4")
+  }
+}
+MyClass> db.db_students.find()
+[
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecb"),
+    student_name: 'Ashwin',
+    student_rollno: 47,
+    mark: [
+      { subject: 'Maths', marks: 78 },
+      { subject: 'Science', marks: 87 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecc"),
+    student_name: 'Nibin',
+    student_rollno: 39,
+    mark: [
+      { subject: 'Maths', marks: 89 },
+      { subject: 'Science', marks: 97 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecd"),
+    student_name: 'Akash',
+    student_rollno: 6,
+    mark: [
+      { subject: 'Maths', marks: 80 },
+      { subject: 'Science', marks: 88 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ece"),
+    student_name: 'Adarsh',
+    student_rollno: 4,
+    mark: [
+      { subject: 'Maths', marks: 98 },
+      { subject: 'Science', marks: 94 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecf"),
+    student_name: 'Karthik',
+    student_rollno: 31,
+    mark: [
+      { subject: 'Maths', marks: 80 },
+      { subject: 'Science', marks: 86 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed0"),
+    student_name: 'Anandhu',
+    student_rollno: 10,
+    mark: [
+      { subject: 'Maths', marks: 76 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed1"),
+    student_name: 'Abin',
+    student_rollno: 3,
+    mark: [
+      { subject: 'Maths', marks: 77 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed2"),
+    student_name: 'Amrithnath',
+    student_rollno: 40,
+    mark: [
+      { subject: 'Maths', marks: 95 },
+      { subject: 'Science', marks: 96 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed3"),
+    student_name: 'Abhijith',
+    student_rollno: 2,
+    mark: [
+      { subject: 'Maths', marks: 79 },
+      { subject: 'Science', marks: 84 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed4"),
+    student_name: 'Albin',
+    student_rollno: 7,
+    mark: [
+      { subject: 'Maths', marks: 86 },
+      { subject: 'Science', marks: 89 }
+    ]
+  }
+MyClass> db.db_students.updateOne({student_name:'Karthik'},{$set:{mark:[{subject:'Maths',marks:90},{subject:'Science',marks:96}]}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+MyClass> db.db_students.find()
+[
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecb"),
+    student_name: 'Ashwin',
+    student_rollno: 47,
+    mark: [
+      { subject: 'Maths', marks: 78 },
+      { subject: 'Science', marks: 87 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecc"),
+    student_name: 'Nibin',
+    student_rollno: 39,
+    mark: [
+      { subject: 'Maths', marks: 89 },
+      { subject: 'Science', marks: 97 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecd"),
+    student_name: 'Akash',
+    student_rollno: 6,
+    mark: [
+      { subject: 'Maths', marks: 80 },
+      { subject: 'Science', marks: 88 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ece"),
+    student_name: 'Adarsh',
+    student_rollno: 4,
+    mark: [
+      { subject: 'Maths', marks: 98 },
+      { subject: 'Science', marks: 94 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecf"),
+    student_name: 'Karthik',
+    student_rollno: 31,
+    mark: [
+      { subject: 'Maths', marks: 90 },
+      { subject: 'Science', marks: 96 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed0"),
+    student_name: 'Anandhu',
+    student_rollno: 10,
+    mark: [
+      { subject: 'Maths', marks: 76 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed1"),
+    student_name: 'Abin',
+    student_rollno: 3,
+    mark: [
+      { subject: 'Maths', marks: 77 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed2"),
+    student_name: 'Amrithnath',
+    student_rollno: 40,
+    mark: [
+      { subject: 'Maths', marks: 95 },
+      { subject: 'Science', marks: 96 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed3"),
+    student_name: 'Abhijith',
+    student_rollno: 2,
+    mark: [
+      { subject: 'Maths', marks: 79 },
+      { subject: 'Science', marks: 84 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed4"),
+    student_name: 'Albin',
+    student_rollno: 7,
+    mark: [
+      { subject: 'Maths', marks: 86 },
+      { subject: 'Science', marks: 89 }
+    ]
+  }
+]
+MyClass> db.db_students.deleteOne({})
+{ acknowledged: true, deletedCount: 1 }
+MyClass> db.db_students.find()
+[
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecc"),
+    student_name: 'Nibin',
+    student_rollno: 39,
+    mark: [
+      { subject: 'Maths', marks: 89 },
+      { subject: 'Science', marks: 97 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecd"),
+    student_name: 'Akash',
+    student_rollno: 6,
+    mark: [
+      { subject: 'Maths', marks: 80 },
+      { subject: 'Science', marks: 88 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ece"),
+    student_name: 'Adarsh',
+    student_rollno: 4,
+    mark: [
+      { subject: 'Maths', marks: 98 },
+      { subject: 'Science', marks: 94 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ecf"),
+    student_name: 'Karthik',
+    student_rollno: 31,
+    mark: [
+      { subject: 'Maths', marks: 90 },
+      { subject: 'Science', marks: 96 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed0"),
+    student_name: 'Anandhu',
+    student_rollno: 10,
+    mark: [
+      { subject: 'Maths', marks: 76 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed1"),
+    student_name: 'Abin',
+    student_rollno: 3,
+    mark: [
+      { subject: 'Maths', marks: 77 },
+      { subject: 'Science', marks: 85 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed2"),
+    student_name: 'Amrithnath',
+    student_rollno: 40,
+    mark: [
+      { subject: 'Maths', marks: 95 },
+      { subject: 'Science', marks: 96 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed3"),
+    student_name: 'Abhijith',
+    student_rollno: 2,
+    mark: [
+      { subject: 'Maths', marks: 79 },
+      { subject: 'Science', marks: 84 }
+    ]
+  },
+  {
+    _id: ObjectId("63ac49ef158c5a6db0474ed4"),
+    student_name: 'Albin',
+    student_rollno: 7,
+    mark: [
+      { subject: 'Maths', marks: 86 },
+      { subject: 'Science', marks: 89 }
+    ]
+  }
+]
+MyClass> exit

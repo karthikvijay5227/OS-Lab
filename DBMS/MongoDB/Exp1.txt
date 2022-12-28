@@ -1,0 +1,173 @@
+test> use MyDB
+switched to db MyDB
+MyDB> db.createCollection('db_mca')
+{ ok: 1 }
+MyDB> db.createCollection('db_cs')
+{ ok: 1 }
+MyDB> db.db_cs.insertMany([{
+... 'name':'Karthik',
+... 'rno':12,
+... },
+... {'name':'Ashwin',
+... 'rno':11
+... },
+... {'name':'Akash',
+... 'rno':14
+... },
+... {'name':'Adarsh',
+... 'rno':10
+... },
+... {'name':'Nibin',
+... 'rno':20
+... },
+... {'name':'Anandhu',
+... 'rno':16
+... },
+... {'name':'Kiran',
+... 'rno':13
+... },
+... {'name':'Abin',
+... 'rno':17
+... },
+... {'name':'Abhijith',
+... 'rno':18
+... },
+... {'name':'Bobby',
+... 'rno':21
+... }])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("63abd9532d8845c94340dcce"),
+    '1': ObjectId("63abd9532d8845c94340dccf"),
+    '2': ObjectId("63abd9532d8845c94340dcd0"),
+    '3': ObjectId("63abd9532d8845c94340dcd1"),
+    '4': ObjectId("63abd9532d8845c94340dcd2"),
+    '5': ObjectId("63abd9532d8845c94340dcd3"),
+    '6': ObjectId("63abd9532d8845c94340dcd4"),
+    '7': ObjectId("63abd9532d8845c94340dcd5"),
+    '8': ObjectId("63abd9532d8845c94340dcd6"),
+    '9': ObjectId("63abd9532d8845c94340dcd7")
+  }
+}
+MyDB> db.db_cs.find().pretty()
+[
+  {
+    _id: ObjectId("63abd9532d8845c94340dcce"),
+    name: 'Karthik',
+    rno: 12
+  },
+  {
+    _id: ObjectId("63abd9532d8845c94340dccf"),
+    name: 'Ashwin',
+    rno: 11
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd0"), name: 'Akash', rno: 14 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd1"),
+    name: 'Adarsh',
+    rno: 10
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd2"), name: 'Nibin', rno: 20 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd3"),
+    name: 'Anandhu',
+    rno: 16
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd4"), name: 'Kiran', rno: 13 },
+  { _id: ObjectId("63abd9532d8845c94340dcd5"), name: 'Abin', rno: 17 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd6"),
+    name: 'Abhijith',
+    rno: 18
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd7"), name: 'Bobby', rno: 21 }
+]
+MyDB> db.db_cs.find().pretty().limit(5)
+[
+  {
+    _id: ObjectId("63abd9532d8845c94340dcce"),
+    name: 'Karthik',
+    rno: 12
+  },
+  {
+    _id: ObjectId("63abd9532d8845c94340dccf"),
+    name: 'Ashwin',
+    rno: 11
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd0"), name: 'Akash', rno: 14 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd1"),
+    name: 'Adarsh',
+    rno: 10
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd2"), name: 'Nibin', rno: 20 }
+]
+MyDB> db.db_cs.find().pretty().skip(2)
+[
+  { _id: ObjectId("63abd9532d8845c94340dcd0"), name: 'Akash', rno: 14 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd1"),
+    name: 'Adarsh',
+    rno: 10
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd2"), name: 'Nibin', rno: 20 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd3"),
+    name: 'Anandhu',
+    rno: 16
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd4"), name: 'Kiran', rno: 13 },
+  { _id: ObjectId("63abd9532d8845c94340dcd5"), name: 'Abin', rno: 17 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd6"),
+    name: 'Abhijith',
+    rno: 18
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd7"), name: 'Bobby', rno: 21 }
+]
+MyDB> db.db_cs.find().pretty().sort({rno:1})
+[
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd1"),
+    name: 'Adarsh',
+    rno: 10
+  },
+  {
+    _id: ObjectId("63abd9532d8845c94340dccf"),
+    name: 'Ashwin',
+    rno: 11
+  },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcce"),
+    name: 'Karthik',
+    rno: 12
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd4"), name: 'Kiran', rno: 13 },
+  { _id: ObjectId("63abd9532d8845c94340dcd0"), name: 'Akash', rno: 14 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd3"),
+    name: 'Anandhu',
+    rno: 16
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd5"), name: 'Abin', rno: 17 },
+  {
+    _id: ObjectId("63abd9532d8845c94340dcd6"),
+    name: 'Abhijith',
+    rno: 18
+  },
+  { _id: ObjectId("63abd9532d8845c94340dcd2"), name: 'Nibin', rno: 20 },
+  { _id: ObjectId("63abd9532d8845c94340dcd7"), name: 'Bobby', rno: 21 }
+]
+MyDB> db.db_cs.remove({})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 10 }
+MyDB> db.db_cs.find().pretty()
+
+MyDB> db.db_cs.drop()
+true
+MyDB> db.db_mca.drop()
+true
+MyDB> db.dropDatabase()
+{ ok: 1, dropped: 'MyDB' }
+MyDB>

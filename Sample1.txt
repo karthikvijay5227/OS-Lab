@@ -1,8 +1,11 @@
-{emp_name: "Sharath", designation: "sales", salary: 15000}
-{emp_name: "Shyam", designation: "manager", salary: 50000}
-{emp_name: "Abraham", designation: "superwiser", salary: 35000}
-{emp_name: "Muhammed", designation: "sales", salary: 15000}
-{emp_name: "Rohith", designation: "sales", salary: 20000}
-{emp_name: "Nirmal", designation: "driver", salary: 20000}
-{emp_name: "Samuel", designation: "superwiser", salary: 35000}
-{emp_name: "Johns", designation: "sales", salary: 15000}
+Create Table Language (Language_id integer,
+Name varchar(20), Primary Key (language_id));
+
+Create Table Publisher (publisher_id integer,
+Name varchar (20), Address varchar(30),
+Primary Key (publisher id));
+
+Create Table Author (Author_id integer, Name
+varchar (20) email varchar (15), ph_no integer,
+status varchar (20), Primary Key (Author_id));
+

@@ -1,0 +1,57 @@
+MariaDB [Library]> delimiter //
+MariaDB [Library]> create procedure books_issue_register()
+    -> begin
+    -> declare v_issueid integer;
+    -> declare v_doi date;
+    -> declare v_exp_dor date;
+    -> declare v_memberid integer;
+    -> declare flag integer default 0;
+    -> declare cur cursor for
+    ->          select Issue_id, Date_of_issue,Expected_return,Member_id from Book_issue;
+    ->          declare continue handler for not found set flag = 1;
+    ->              open cur;
+    ->              get_list : loop fetch cur into v_issueid, v_doi,v_exp_dor,v_memberid;
+    ->                       if flag = 1 then
+    ->                               leave get_list;
+    ->                       end if;
+    -> select concat(v_issueid,concat(';',concat(v_exp_dor,concat(';',v_memberid))))
+    ->              as register;
+    ->              End Loop get_list;
+    ->              close cur;
+    ->      end //
+Query OK, 0 rows affected (0.305 sec)
+
+MariaDB [Library]> call book_issue_register();
+    -> //
+ERROR 1305 (42000): PROCEDURE Library.book_issue_register does not exist
+MariaDB [Library]> call books_issue_register();
+    -> //
++---------------------+
+| register            |
++---------------------+
+| 200;2020-08-24;1002 |
++---------------------+
+1 row in set (0.321 sec)
+
++---------------------+
+| register            |
++---------------------+
+| 202;2020-08-14;1004 |
++---------------------+
+1 row in set (0.322 sec)
+
++---------------------+
+| register            |
++---------------------+
+| 204;2020-09-21;1001 |
++---------------------+
+1 row in set (0.322 sec)
+
++---------------------+
+| register            |
++---------------------+
+| 205;2020-09-28;1002 |
++---------------------+
+1 row in set (0.322 sec)
+
+Query OK, 0 rows affected (0.322 sec)

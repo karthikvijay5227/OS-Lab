@@ -1,0 +1,47 @@
+MariaDB [Library]> create table History(Member_id int,Name varchar(20),Branch_code int,Roll_no int,email varchar(15),date_of_join date,status varchar(20));
+Query OK, 0 rows affected (0.726 sec)
+
+MariaDB [Library]> select * from Member;
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+| Member_id | Name    | Branch_code | Roll_no | email           | date_of_join | status    |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+|      1001 | George  |         340 |      12 | gg@gmail.com    | 2019-07-06   | Avail     |
+|      1002 | Stephen |         342 |      20 | st456@gmail.com | 2019-06-16   | Avail     |
+|      1004 | Govind  |         351 |      21 | gov35@gmail.com | 2020-09-11   | Not_Avail |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [Library]> select * from History;
+Empty set (0.001 sec)
+
+MariaDB [Library]> delimiter //
+MariaDB [Library]> create trigger update_History
+    -> before update on Member
+    -> for each row
+    -> begin
+    -> insert into History values(old.Member_id,old.Name,old.Branch_code,old.Roll_no,old.email,old.date_of_join,old.status);
+    -> end //
+Query OK, 0 rows affected (0.113 sec)
+
+MariaDB [Library]> update Member set status="Not_Avail" where Member_id=1002;
+    -> //
+Query OK, 1 row affected (0.046 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Library]> select * from Member;//
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+| Member_id | Name    | Branch_code | Roll_no | email           | date_of_join | status    |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+|      1001 | George  |         340 |      12 | gg@gmail.com    | 2019-07-06   | Avail     |
+|      1002 | Stephen |         342 |      20 | st456@gmail.com | 2019-06-16   | Not_Avail |
+|      1004 | Govind  |         351 |      21 | gov35@gmail.com | 2020-09-11   | Not_Avail |
++-----------+---------+-------------+---------+-----------------+--------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [Library]> select * from History;//
++-----------+---------+-------------+---------+-----------------+--------------+--------+
+| Member_id | Name    | Branch_code | Roll_no | email           | date_of_join | status |
++-----------+---------+-------------+---------+-----------------+--------------+--------+
+|      1002 | Stephen |         342 |      20 | st456@gmail.com | 2019-06-16   | Avail  |
++-----------+---------+-------------+---------+-----------------+--------------+--------+
+1 row in set (0.001 sec)

@@ -18,3 +18,18 @@ Create table late_fee_rule (from_days integer,
 to_days integer, Amount integer, Primary
 Key (from_days, to_days, Amount);
 
+Create Table Book ( Book_id integer, Title varchar (15),
+language_id integer, MRP bigint, publisher_id
+integer, Publisher_date date, volume integer,
+status varchar(20), Primary Key (Book_id),
+Foreign Key (language id) references Language
+(language_id), Foreign Key (publisher id
+references Publisher (publisher id));
+
+Create Table Book_issue (Issue_id integer,
+Date_of_issue date, Book_id integer,
+Member_id integer, Expected_return date
+Primary Key (Issue_id), Foreign Key (Book_id)
+references Book (Book_id), Foreign Key (Member_id)
+references Member (Member_id));
+

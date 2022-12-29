@@ -40,3 +40,32 @@ references Book_issue (Issue_id));
 
 Create table Book_Author(Book_id integer,Author_id integer,Primary Key(Book_id),Foreign Key(Book_id) references Book(Book_id),Foreign Key(Author_id) references Author(Author_id));
 
+Insert into Language values (1, "English"),
+(2, "Malayalam"), (3 "Hindi"), ('4 "Tamil"),
+(5, "Telugu"), (6, "Bengali");
+
+Insert into Publisher values (101, "Karthik", "Chennai"),
+(102, "Ashwin", "Kolkata"), (103, "Nibin", "Bengal");
+
+Insert into Author values (2002, "John", "jhn2@
+@gmail.com", 308093280, "Working"), (2004,"Steve",
+"stv!@gmail.com", 853956285, "Avail"),
+(2005,"Abin", "ab45@gmail.com", 589829385,
+"Not Avail");
+
+Insert into late_fee_rule values (2,22,300),
+(7,24, 100), (12,24,200);
+
+Insert into Book_issue values (2000, "2020-08-16","
+2,1002, "2020-08-24"), (202, "2020-08-06", 2,
+1004, "2020-08-14"), (204, "2020-09-14", 4, 1001,
+"2020-09-21") (205, "2020-09-20", 6, 1002,
+2020-09-28");
+
+Insert into Member values(1001,"George",340,12,"gg@gmail.com","2019-07-06","Avail"),
+(1002,"Stephen",342,20,"st456@gmail.com","2019-06-16","Avail"),
+(1004,"Govind",351,21,"gov35@gmail.com","2020-09-11","Not_Avail");
+
+Insert into Book_Author values(4,2002),(5,2002),(3,2004),(1,2005);
+
+

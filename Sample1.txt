@@ -56,11 +56,11 @@ Insert into Author values (2002, "John", "jhn2@
 Insert into late_fee_rule values (2,22,300),
 (7,24, 100), (12,24,200);
 
-Insert into Book_issue values (2000, "2020-08-16","
+Insert into Book_issue values (200, "2020-08-16",
 2,1002, "2020-08-24"), (202, "2020-08-06", 2,
 1004, "2020-08-14"), (204, "2020-09-14", 4, 1001,
-"2020-09-21") (205, "2020-09-20", 6, 1002,
-2020-09-28");
+"2020-09-21"), (205, "2020-09-20", 6, 1002,
+"2020-09-28");
 
 Insert into Member values(1001,"George",340,12,"gg@gmail.com","2019-07-06","Avail"),
 (1002,"Stephen",342,20,"st456@gmail.com","2019-06-16","Avail"),

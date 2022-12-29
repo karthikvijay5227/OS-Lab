@@ -11,7 +11,7 @@ status varchar (20), Primary Key (Author_id));
 
 Create table Member (Member_id integer, Name
 varchar (20), Branch_code integer, Roll_no
-integer, email varchar (15), date of join
+integer, email varchar (15), date_of_join
 date, status varchar (20), Primary Key (Member_id));
 
 Create table late_fee_rule (from_days integer,

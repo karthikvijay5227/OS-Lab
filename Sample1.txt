@@ -33,3 +33,10 @@ Primary Key (Issue_id), Foreign Key (Book_id)
 references Book (Book_id), Foreign Key (Member_id)
 references Member (Member_id));
 
+Create Table Book_return (Issue_id integer,
+Actual_Date_of_return date, late_days
+integer late_fee integer, Foreign Key (Issue_id)
+references Book_issue (Issue_id));
+
+Create table Book_Author(Book_id integer,Author_id integer,Primary Key(Book_id),Foreign Key(Book_id) references Book(Book_id),Foreign Key(Author_id) references Author(Author_id));
+

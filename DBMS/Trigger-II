@@ -1,4 +1,4 @@
-# 1)Create a trigger to insert account number and customer name into customer_detail table after an insert occured in customer table.
+#1)Create a trigger to insert account number and customer name into customer_detail table after an insert occured in customer table.
 
 MariaDB [(none)]> create database Bank;
 Query OK, 1 row affected (0.017 sec)

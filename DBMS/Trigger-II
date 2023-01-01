@@ -1,4 +1,4 @@
-# Create a trigger to insert account number and customer name into customer_detail table after an insert occured in customer table.
+1) Create a trigger to insert account number and customer name into customer_detail table after an insert occured in customer table.
 
 MariaDB [(none)]> create database Bank;
 Query OK, 1 row affected (0.017 sec)
@@ -90,7 +90,7 @@ MariaDB [Bank]> select * from customer_detail;
 +--------+-----------+
 5 rows in set (0.001 sec)
 
-# 2)Create a trigger on customer table such that whenever an update occur in customer table insert(old) 
+2) Create a trigger on customer table such that whenever an update occur in customer table insert(old) 
 values to a mini_statement record(including account nmber and available balance as parameters) before updating.
 
 MariaDB [Bank]> delimiter //

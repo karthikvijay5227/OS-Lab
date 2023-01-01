@@ -1,0 +1,129 @@
+# 1)Create a trigger to insert account number and customer name into customer_detail table after an insert occured in customer table.
+
+MariaDB [(none)]> create database Bank;
+Query OK, 1 row affected (0.017 sec)
+
+MariaDB [(none)]> use Bank;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+
+MariaDB [Bank]> create table customer(acc_no integer,Name varchar(20),balance integer,primary key(acc_no)); 
+Query OK, 0 rows affected (0.117 sec)
+
+MariaDB [Bank]> create table customer_detail(acc_no integer,cust_name varchar(20),primary key(acc_no));
+Query OK, 0 rows affected (0.111 sec)
+
+MariaDB [Bank]> create table mini_statement(acc_no integer,avail_balance int,foreign key(acc_no) references customer(acc_no));
+Query OK, 0 rows affected (0.136 sec)
+
+MariaDB [Bank]> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| acc_no  | int(11)     | NO   | PRI | NULL    |       |
+| Name    | varchar(20) | YES  |     | NULL    |       |
+| balance | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [Bank]> desc customer_detail;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| acc_no    | int(11)     | NO   | PRI | NULL    |       |
+| cust_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.002 sec)
+
+MariaDB [Bank]> desc mini_statement;
++---------------+---------+------+-----+---------+-------+
+| Field         | Type    | Null | Key | Default | Extra |
++---------------+---------+------+-----+---------+-------+
+| acc_no        | int(11) | YES  | MUL | NULL    |       |
+| avail_balance | int(11) | YES  |     | NULL    |       |
++---------------+---------+------+-----+---------+-------+
+2 rows in set (0.002 sec)
+
+MariaDB [Bank]> select * from customer;                                                                                                                      
+Empty set (0.001 sec)
+
+MariaDB [Bank]> select * from customer_detail;                                                                                                                      
+Empty set (0.001 sec)
+
+MariaDB [Bank]> select * from mini_statement;                                                                                                                      
+Empty set (0.001 sec)
+
+MariaDB [Bank]> delimiter //
+
+MariaDB [Bank]> create trigger after_cust_update after insert on customer for each row begin insert into customer_detail(acc_no,cust_name) values(new.acc_no,new.Name); end//
+Query OK, 0 rows affected (0.097 sec)
+
+MariaDB [Bank]> delimiter ;
+MariaDB [Bank]> insert into customer values(100,'Manu',12000),(101,'Remya',3000),(102,'Anu',15000),(103,'Sonu',20000),(104,'Achu',25000);
+Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [Bank]> select * from customer;
++--------+-------+---------+
+| acc_no | Name  | balance |
++--------+-------+---------+
+|    100 | Manu  |   12000 |
+|    101 | Remya |    3000 |
+|    102 | Anu   |   15000 |
+|    103 | Sonu  |   20000 |
+|    104 | Achu  |   25000 |
++--------+-------+---------+
+5 rows in set (0.001 sec)
+
+MariaDB [Bank]> select * from customer_detail;
++--------+-----------+
+| acc_no | cust_name |
++--------+-----------+
+|    100 | Manu      |
+|    101 | Remya     |
+|    102 | Anu       |
+|    103 | Sonu      |
+|    104 | Achu      |
++--------+-----------+
+5 rows in set (0.001 sec)
+
+# 2)Create a trigger on customer table such that whenever an update occur in customer table insert(old) 
+values to a mini_statement record(including account nmber and available balance as parameters) before updating.
+
+MariaDB [Bank]> delimiter //
+MariaDB [Bank]> create trigger update_customer
+    -> before update on customer
+    -> for each row
+    -> begin
+    -> insert into mini_statement values(old.acc_no,old.balance);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.188 sec)
+
+MariaDB [Bank]> delimiter ;
+MariaDB [Bank]> update customer set balance=50000 where acc_no=104;
+Query OK, 1 row affected (0.021 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Bank]> select * from customer;
++--------+-------+---------+
+| acc_no | Name  | balance |
++--------+-------+---------+
+|    100 | Manu  |   12000 |
+|    101 | Remya |    3000 |
+|    102 | Anu   |   15000 |
+|    103 | Sonu  |   20000 |
+|    104 | Achu  |   50000 |
++--------+-------+---------+
+5 rows in set (0.001 sec)
+
+MariaDB [Bank]> select * from mini_statement;
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|    104 |         25000 |
++--------+---------------+
+1 row in set (0.001 sec)

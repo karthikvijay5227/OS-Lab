@@ -127,3 +127,97 @@ MariaDB [Bank]> select * from mini_statement;
 |    104 |         25000 |
 +--------+---------------+
 1 row in set (0.001 sec)
+
+3)Create a trigger on customer table to insert(new) values of account number and available balance into micro statement record after an update has occured.
+
+
+mysql> create table micro_statement(acc_no integer,avail_balance integer);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create trigger insert_new_customer after insert on customer for each row
+begin insert into micro_statement values(new.acc_no,new.balance); end//
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from customer;
+    -> //
++--------+-------+---------+
+| acc_no | Name  | balance |
++--------+-------+---------+
+|    100 | Manu  |   12000 |
+|    101 | Remya |    3000 |
+|    102 | Anu   |   15000 |
+|    103 | Sonu  |   20000 |
+|    104 | Achu  |   25000 |
++--------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from micro_statement; //
+Empty set (0.00 sec)
+
+mysql> insert into customer values(105,"Ashwin",70000); //
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
+    -> //
++--------+--------+---------+
+| acc_no | Name   | balance |
++--------+--------+---------+
+|    100 | Manu   |   12000 |
+|    101 | Remya  |    3000 |
+|    102 | Anu    |   15000 |
+|    103 | Sonu   |   20000 |
+|    104 | Achu   |   25000 |
+|    105 | Ashwin |   70000 |
++--------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from micro_statement; //
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|    105 |         70000 |
++--------+---------------+
+1 row in set (0.00 sec)
+
+4)Create a trigger to insert account number and customer name in deleted customer table after a deleteion occured in customer table.
+
+
+mysql> create table deleted_customer(acc_no integer,cust_name varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from deleted_customer;
+Empty set (0.00 sec)
+
+mysql> delimiter //
+mysql> create trigger after_delete_store
+    -> after delete on customer
+    -> for each row
+    -> begin
+    -> insert into deleted_customer values(old.acc_no,old.Name);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> delimiter ;
+mysql> delete from customer where acc_no=103;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from customer;
++--------+--------+---------+
+| acc_no | Name   | balance |
++--------+--------+---------+
+|    100 | Manu   |   12000 |
+|    101 | Remya  |    3000 |
+|    102 | Anu    |   15000 |
+|    104 | Achu   |   25000 |
+|    105 | Ashwin |   70000 |
++--------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from deleted_customer;
++--------+-----------+
+| acc_no | cust_name |
++--------+-----------+
+|    103 | Sonu      |
++--------+-----------+
+1 row in set (0.00 sec)
